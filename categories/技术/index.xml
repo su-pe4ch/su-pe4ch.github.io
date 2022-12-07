@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>技术 on Pe4ch&#39;s博客</title>
+    <link>https://su-pe4ch.github.io/categories/%E6%8A%80%E6%9C%AF/</link>
+    <description>Recent content in 技术 on Pe4ch&#39;s博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2022 &lt;a href=&#34;https://www.yxyink.com/&#34;&gt;Pe4ch&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Fri, 18 Nov 2022 12:10:39 +0800</lastBuildDate><atom:link href="https://su-pe4ch.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>UNCTF2022-WEB部分WP</title>
+      <link>https://su-pe4ch.github.io/posts/unctf2022web%E9%83%A8%E5%88%86wp/</link>
+      <pubDate>Fri, 18 Nov 2022 12:10:39 +0800</pubDate>
+      
+      <guid>https://su-pe4ch.github.io/posts/unctf2022web%E9%83%A8%E5%88%86wp/</guid>
+      <description>前言 官方突然说前100名送证书，所以在比赛最后两天赶的，WP也就潦草了些，师傅们见谅。
+UNCTF WEB 签到-吉林警察学院 抓了个包，看到网页有备注：
+登陆后回显并无什么有效信息，dirsearch扫描也没有得到结果。
+查看一下网页指纹，PHP5.5.9：
+再怎么说这也是签到题，应该不至于考PHP5.5.9整数溢出漏洞
+于是在HhhM师傅的指导下，发现是学号问题，每次20200101递增，就能得到flag的一部分：
+得到这个规律后，写一个脚本方便提取flag（当然一个个自己拼肯定速度更快吧（啊不是））：
+import requests import string url = &amp;quot;http://5f8d168b-400b-4ef5-b007-3bf6fed2f7ca.node.yuzhian.com.cn/&amp;quot; session = requests.session() for i in range(20200101, 20200199): r = requests.post(url=url, data={&#39;username&#39;: i, &#39;password&#39;: i}) # print(r.text) print(r.text.rstrip()[-1], end=&#39;&#39;) #strip()：去除空格或空行类字符；[-1]：代表最后一个字符；end：去除print里面自带的转行。 我太喜欢bilibili大学啦&amp;ndash;中北大学 ctrl+f直接查找flag就出来了：
+ezgame-浙江师范大学 在86行添加断点：
+修改伤害dmg：
+赢得游戏就给出了flag。
+babyphp-中国人民公安大学 打开是个乌班图的界面，扫描一下，有个index.php，访问得到：
+&amp;lt;?php highlight_file(__FILE__); error_reporting(0); if(isset($_POST[&amp;quot;a&amp;quot;])){ if($_POST[&amp;quot;a&amp;quot;]==0&amp;amp;&amp;amp;$_POST[&amp;quot;a&amp;quot;]!==0){ if(isset($_POST[&amp;quot;key1&amp;quot;])&amp;amp;isset($_POST[&amp;quot;key2&amp;quot;])){ $key1=$_POST[&amp;quot;key1&amp;quot;]; $key2=$_POST[&amp;quot;key2&amp;quot;]; if ($key1!==$key2&amp;amp;&amp;amp;sha1($key1)==sha1($key2)){ if (isset($_GET[&amp;quot;code&amp;quot;])){ $code=$_GET[&amp;quot;code&amp;quot;]; if(!preg_match(&amp;quot;/flag|system|txt|cat|tac|sort|shell|\.| |\&#39;/i&amp;quot;, $code)){ eval($code); }else{ echo &amp;quot;有手就行&amp;lt;/br&amp;gt;&amp;quot;; } }else{ echo &amp;quot;老套路了&amp;lt;/br&amp;gt;&amp;quot;; } }else{ echo &amp;quot;很简单的，很快就拿flag了~_~&amp;lt;/br&amp;gt;&amp;quot;; } }else{ echo &amp;quot;百度就能搜到的东西&amp;lt;/br&amp;gt;&amp;quot;; } }else{ echo &amp;quot;easy 不 easy ,baby 真 baby,都是玩烂的东西，快拿flag！！！&amp;lt;/br&amp;gt;&amp;quot;; } } 代码审计：</description>
+    </item>
+    
+    <item>
+      <title>从题目中学习内存取证的基本流程及vol2.6用法</title>
+      <link>https://su-pe4ch.github.io/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/</link>
+      <pubDate>Wed, 09 Nov 2022 20:35:18 +0800</pubDate>
+      
+      <guid>https://su-pe4ch.github.io/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/</guid>
+      <description>0x01 MemLabs Lab_0 | Never Too Late Mister 描述：
+My friend John is an &amp;ldquo;environmental&amp;rdquo; activist and a humanitarian. He hated the ideology of Thanos from the Avengers: Infinity War. He sucks at programming. He used too many variables while writing any program. One day, John gave me a memory dump and asked me to find out what he was doing while he took the dump. Can you figure it out for me?
+我的朋友约翰是一位“环保”活动家和人道主义者。他讨厌复仇者联盟中灭霸的观点：无限战争。他编程很烂。他在编写任何程序时使用了太多变量。有一天，约翰给了我一个内存转储，并让我找出他在转储时在做什么。你能帮我弄清楚吗？
+这题是常规的取证思路：</description>
+    </item>
+    
+    <item>
+      <title>网络安全应急响应基础与流程技术</title>
+      <link>https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/</link>
+      <pubDate>Wed, 12 Oct 2022 11:34:05 +0800</pubDate>
+      
+      <guid>https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/</guid>
+      <description>网络安全应急响应基础与流程技术 目录 一、认识应急响应
+二、数据保护技术
+三、应急响应事件检测
+一、应急响应 网络安全的特性 网络应急响应的定义
+应急响应的准备
+事件发生前，做好日常运维检测，收集各类故障信息。区分系统自身故障和人为破坏。区分一般事件和应急响应事件。
+充分获取当前信息从而启动相应的预案。
+事件上报，确认应急事件类型和应急事件的等级通知相关人员，启用应急预案。
+启用网络安全应急响应预案：预案内容；小组划分。
+应急响应保护
+一般情况下，各种木马、病毒等恶意程序，都会在计算机开机启动过程中自启动。
+二、数据保护技术 Windows排查分析 Windows磁盘镜像备份与恢复
+temp(临时文件夹)，位于C:\Documents and Settings\Administrator\ ocal Setings\内。很多临时文件放在这里，用来收藏夹，浏览网页的临时文件，编辑文件等。
+网络配置信息收集
+ipconfig /all
+用户列表配置收集
+net user net localgroup administrators query user ||qwinsta 进程列表信息收集
+tasklist /v wmic process list brief 操作系统与软件信息收集
+systeminfo | findstr /B /C:&amp;quot;OS名称&amp;quot; /C:&amp;quot;OS版本&amp;quot; wmic product get name,version powershell &amp;quot;Get-WmiObject -class Win32_Product |Select-Object -Property name,version&amp;quot; 端口列表信息收集
+netstat -ano 补丁列表信息收集
+systeminfo wmic qfe get description,installedOn 本机共享信息收集
+net share wmic share get name,path,status 防火墙配置信息收集</description>
+    </item>
+    
+    <item>
+      <title>关于“校园网重复登陆”问题解决方法</title>
+      <link>https://su-pe4ch.github.io/posts/%E5%85%B3%E4%BA%8E%E6%A0%A1%E5%9B%AD%E7%BD%91%E9%87%8D%E5%A4%8D%E7%99%BB%E9%99%86%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Sun, 09 Oct 2022 19:20:48 +0800</pubDate>
+      
+      <guid>https://su-pe4ch.github.io/posts/%E5%85%B3%E4%BA%8E%E6%A0%A1%E5%9B%AD%E7%BD%91%E9%87%8D%E5%A4%8D%E7%99%BB%E9%99%86%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
+      <description>&lt;p&gt;由于终端“随机MAC”功能的出现，影响了MAC无感知功能的使用，造成了需要重复登录的现象，可通过关闭“随机MAC”功能来进行规避。以安卓华为手机、苹果手机进行举例。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Google Fonts本地化</title>
+      <link>https://su-pe4ch.github.io/posts/googlefonts%E6%9C%AC%E5%9C%B0%E5%8C%96/</link>
+      <pubDate>Thu, 06 Oct 2022 17:00:44 +0800</pubDate>
+      
+      <guid>https://su-pe4ch.github.io/posts/googlefonts%E6%9C%AC%E5%9C%B0%E5%8C%96/</guid>
+      <description>&lt;h2 id=&#34;0x01前言&#34;&gt;0x01前言&lt;/h2&gt;
+&lt;p&gt;这几天重写了一下个人主页，微软雅黑看久了审美疲劳，于是想到换成Google Fonts。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

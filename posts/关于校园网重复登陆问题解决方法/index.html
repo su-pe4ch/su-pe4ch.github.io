@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>关于“校园网重复登陆”问题解决方法 | Pe4ch&#39;s博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.3" />
+<link rel="stylesheet" href="https://su-pe4ch.github.io/css/eureka.min.9cec6350e37e534b0338fa9a085bf06855de3b0f2dcf857e792e5e97b07ea905d4d5513db554cbc26a9c3da622bae92d.css">
+<script defer src="https://su-pe4ch.github.io/js/eureka.min.fa9a6bf6d7a50bb635b4cca7d2ba5cf3dfb095ae3798773f1328f7950028b48c17d06276594e1b5f244a25a6c969a705.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;600;700&amp;display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+<link rel="stylesheet" href="https://su-pe4ch.github.io/css/highlightjs.min.2958991528e43eb6fc9b8c4f2b8e052f79c4010718e1d1e888a777620e9ee63021c2c57ec7417a3108019bb8c41943e6.css" media="print" onload="this.media='all';this.onload=null">
+
+
+<script defer type="text/javascript" src="https://su-pe4ch.github.io/js/fontawesome.min.173caf5811f804bf2d43f8106beadead5935d403fb826f5a7176d5c669cee1fbb7e3fd172f63863bca501676b7222360.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="https://su-pe4ch.github.io/images/icon_hubdf2d941896e4cd8d5e843b83e502570_28983_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://su-pe4ch.github.io/images/icon_hubdf2d941896e4cd8d5e843b83e502570_28983_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="关于“校园网重复登陆”问题解决方法">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"Posts",
+      "item":"https://su-pe4ch.github.io/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"关于“校园网重复登陆”问题解决方法",
+      "item":"https://su-pe4ch.github.io/posts/%E5%85%B3%E4%BA%8E%E6%A0%A1%E5%9B%AD%E7%BD%91%E9%87%8D%E5%A4%8D%E7%99%BB%E9%99%86%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://su-pe4ch.github.io/posts/%E5%85%B3%E4%BA%8E%E6%A0%A1%E5%9B%AD%E7%BD%91%E9%87%8D%E5%A4%8D%E7%99%BB%E9%99%86%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"
+    },
+    "headline": "关于“校园网重复登陆”问题解决方法 | Pe4ch\u0027s博客","datePublished": "2022-10-09T19:20:48+08:00",
+    "dateModified": "2022-10-09T19:20:48+08:00",
+    "wordCount":  14 ,
+    "author": {
+        "@type": "Person",
+        "name": ["Pe4ch"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "Pe4ch",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://su-pe4ch.github.io/images/icon.png"
+        }
+        },
+    "description": "关于“校园网重复登陆”问题解决方法"
+}
+</script><meta property="og:title" content="关于“校园网重复登陆”问题解决方法 | Pe4ch&#39;s博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="https://su-pe4ch.github.io/images/icon.png">
+
+
+<meta property="og:url" content="https://su-pe4ch.github.io/posts/%E5%85%B3%E4%BA%8E%E6%A0%A1%E5%9B%AD%E7%BD%91%E9%87%8D%E5%A4%8D%E7%99%BB%E9%99%86%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" />
+
+
+
+<meta property="og:description" content="关于“校园网重复登陆”问题解决方法" />
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="Pe4ch&#39;s博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-10-09T19:20:48&#43;08:00" />
+
+
+<meta property="article:modified_time" content="2022-10-09T19:20:48&#43;08:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">Pe4ch&#39;s博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/authors/pe4ch/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/links/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">友联</a>
+            <a href="/fun/bomb/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">扫雷</a>
+            <a href="/fun/relax/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">摸鱼</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+  
+  
+  <div class="grid grid-cols-2 gap-4 lg:grid-cols-8 lg:pt-12">
+    <div
+      class="lg:col-start-2 bg-secondary-bg col-span-2 rounded px-6 py-8 lg:col-span-6"
+    >
+      <article class="prose">
+  <h1 class="mb-4">关于“校园网重复登陆”问题解决方法</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2022-10-09</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>1 min read</span>
+  </div>
+
+  
+    <div class="me-6 my-2">
+      <i class="fas fa-folder me-1"></i>
+      
+        <a href="https://su-pe4ch.github.io/categories/%E6%8A%80%E6%9C%AF/" class="hover:text-eureka"
+          >技术</a
+        >
+      
+        
+          <span>, </span>
+        <a href="https://su-pe4ch.github.io/categories/%E6%97%A5%E5%B8%B8/" class="hover:text-eureka"
+          >日常</a
+        >
+      
+    </div>
+  
+
+  
+</div>
+
+
+  
+  
+
+  <p>由于终端“随机MAC”功能的出现，影响了MAC无感知功能的使用，造成了需要重复登录的现象，可通过关闭“随机MAC”功能来进行规避。以安卓华为手机、苹果手机进行举例。</p>
+<p>1.安卓华为手机（系统版本在10.0以上的华为各系列手机）</p>
+<p>①点击设置</p>
+<p>②点击WLAN
+③长按已连接的无线WLAN名称，选择修改网络</p>
+<p>④选择高级设置，在隐私里选择使用设备MAC</p>
+<p>⑤ 确认选择的为使用设备MAC，点击保存</p>
+<p>2.苹果手机（IOS14及以后系统版本）</p>
+<p>①点击设置</p>
+<p>②点击无线局域网
+③点击已连接WiFi名称后的“感叹号图标”</p>
+<p>④打开“自动加入”，关闭“自动登录”，关闭“私有地址”</p>
+<p>⑤返回WiFi列表，返回桌面。</p>
+</article>
+
+
+      
+
+      
+
+
+
+      
+        <div class="py-2">
+  
+    <div class="my-8 flex flex-col items-center md:flex-row">
+      <a href="https://su-pe4ch.github.io/authors/pe4ch/" class="md:me-4 text-primary-text h-24 w-24">
+        
+        
+          <img
+            src="https://su-pe4ch.github.io/images/icon.png"
+            class="bg-primary-bg w-full rounded-full"
+            alt="Avatar"
+          />
+        
+      </a>
+      <div class="mt-4 w-full md:mt-0 md:w-auto">
+        <a
+          href="https://su-pe4ch.github.io/authors/pe4ch/"
+          class="mb-2 block border-b pb-1 text-lg font-bold"
+        >
+          <h3>Pe4ch</h3>
+        </a>
+        <span class="block pb-2">只要你希望，就能得到强烈的回应。</span>
+        
+          
+          
+          
+          
+          <a href="mailto:76320143@qq.com" class="me-2">
+            <i class="fas fa-envelope"></i>
+          </a>
+        
+          
+          
+          
+          
+          <a href="https://twitter.com/Alex_1111_" class="me-2">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+          
+          
+          
+          
+          <a href="https://github.com/su-pe4ch/" class="me-2">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+</div>
+
+      
+
+      
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="block">网络安全应急响应基础与流程技术</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="https://su-pe4ch.github.io/posts/googlefonts%E6%9C%AC%E5%9C%B0%E5%8C%96/" class="block">Google Fonts本地化</a>
+      
+    </div>
+  </div>
+
+
+      
+
+
+
+  <div id="valine-comments" class="mt-4"></div>
+<script defer src="https://cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js" 
+  integrity="sha384-e0&#43;DNUCJo75aOAzHQbFWYBCM9/S4f0BhRJXvEgbE3mMS85RM20MSSGStHuNdY2QK"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Valine({
+      el: "#valine-comments",appId:"n2AXKC0RlunW4KwG6L6oHqGE-gzGzoHsz",appKey:"sq1MkMNgpleLlbDdFYCCNyKz",
+    })
+  });
+</script>
+
+    </div>
+    
+
+    
+    
+  </div>
+
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        hljs.highlightAll();
+      });
+    </script>
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2022 <a href="https://www.yxyink.com/">Pe4ch</a>
+
+         
+        
+        <br>
+        <a style="margin-bottom: 2px;"><a id="ICP" href="https://beian.miit.gov.cn/" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer">冀ICP备2021024512号-1</a> | <a href="https://icp.gov.moe/?keyword=www.yxyink.com" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer">萌国 </a><a href="https://icp.gov.moe/?keyword=www.yxyink.com" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer"> 20220077号</a></a>
+    </p>
+</div></div>
+    </footer>
+  </body>
+</html>

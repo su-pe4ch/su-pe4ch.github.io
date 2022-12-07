@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>网络安全应急响应基础与流程技术 | Pe4ch&#39;s博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.3" />
+<link rel="stylesheet" href="https://su-pe4ch.github.io/css/eureka.min.9cec6350e37e534b0338fa9a085bf06855de3b0f2dcf857e792e5e97b07ea905d4d5513db554cbc26a9c3da622bae92d.css">
+<script defer src="https://su-pe4ch.github.io/js/eureka.min.fa9a6bf6d7a50bb635b4cca7d2ba5cf3dfb095ae3798773f1328f7950028b48c17d06276594e1b5f244a25a6c969a705.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;600;700&amp;display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+<link rel="stylesheet" href="https://su-pe4ch.github.io/css/highlightjs.min.2958991528e43eb6fc9b8c4f2b8e052f79c4010718e1d1e888a777620e9ee63021c2c57ec7417a3108019bb8c41943e6.css" media="print" onload="this.media='all';this.onload=null">
+
+
+<script defer type="text/javascript" src="https://su-pe4ch.github.io/js/fontawesome.min.173caf5811f804bf2d43f8106beadead5935d403fb826f5a7176d5c669cee1fbb7e3fd172f63863bca501676b7222360.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="https://su-pe4ch.github.io/images/icon_hubdf2d941896e4cd8d5e843b83e502570_28983_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://su-pe4ch.github.io/images/icon_hubdf2d941896e4cd8d5e843b83e502570_28983_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="网络安全应急响应基础与流程技术">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"Posts",
+      "item":"https://su-pe4ch.github.io/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"网络安全应急响应基础与流程技术",
+      "item":"https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/"
+    },
+    "headline": "网络安全应急响应基础与流程技术 | Pe4ch\u0027s博客",
+    "image": "https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/1.png",
+    "datePublished": "2022-10-12T11:34:05+08:00",
+    "dateModified": "2022-10-12T11:34:05+08:00",
+    "wordCount":  453 ,
+    "author": {
+        "@type": "Person",
+        "name": ["Pe4ch"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "Pe4ch",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://su-pe4ch.github.io/images/icon.png"
+        }
+        },
+    "description": "网络安全应急响应基础与流程技术"
+}
+</script><meta property="og:title" content="网络安全应急响应基础与流程技术 | Pe4ch&#39;s博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="https://su-pe4ch.github.io/images/icon.png">
+
+
+<meta property="og:url" content="https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/" />
+
+
+
+<meta property="og:description" content="网络安全应急响应基础与流程技术" />
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="Pe4ch&#39;s博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-10-12T11:34:05&#43;08:00" />
+
+
+<meta property="article:modified_time" content="2022-10-12T11:34:05&#43;08:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="技术" />
+
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">Pe4ch&#39;s博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/authors/pe4ch/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/links/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">友联</a>
+            <a href="/fun/bomb/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">扫雷</a>
+            <a href="/fun/relax/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">摸鱼</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+  
+  
+  <div class="grid grid-cols-2 gap-4 lg:grid-cols-8 lg:pt-12">
+    <div
+      class=" bg-secondary-bg col-span-2 rounded px-6 py-8 lg:col-span-6"
+    >
+      <article class="prose">
+  <h1 class="mb-4">网络安全应急响应基础与流程技术</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2022-10-12</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>3 min read</span>
+  </div>
+
+  
+    <div class="me-6 my-2">
+      <i class="fas fa-folder me-1"></i>
+      
+        <a href="https://su-pe4ch.github.io/categories/%E6%8A%80%E6%9C%AF/" class="hover:text-eureka"
+          >技术</a
+        >
+      
+        
+          <span>, </span>
+        <a href="https://su-pe4ch.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="hover:text-eureka"
+          >网络安全</a
+        >
+      
+    </div>
+  
+
+  
+</div>
+
+
+  
+  
+    <img src="https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/1.png" class="w-full" alt="Featured Image">
+  
+
+  <h1 id="网络安全应急响应基础与流程技术">网络安全应急响应基础与流程技术</h1>
+<h2 id="目录">目录</h2>
+<p>一、认识应急响应</p>
+<p>二、数据保护技术</p>
+<p>三、应急响应事件检测</p>
+<h2 id="一应急响应">一、应急响应</h2>
+<p>网络安全的特性 网络应急响应的定义</p>
+<p><strong>应急响应的准备</strong></p>
+<p>事件发生前，做好日常运维检测，收集各类故障信息。区分系统自身故障和人为破坏。区分一般事件和应急响应事件。</p>
+<p>充分获取当前信息从而启动相应的预案。</p>
+<p>事件上报，确认应急事件类型和应急事件的等级通知相关人员，启用应急预案。</p>
+<p>启用网络安全应急响应预案：预案内容；小组划分。</p>
+<p><strong>应急响应保护</strong></p>
+<p>一般情况下，各种木马、病毒等恶意程序，都会在计算机开机启动过程中自启动。</p>
+<h2 id="二数据保护技术">二、数据保护技术</h2>
+<h3 id="windows排查分析">Windows排查分析</h3>
+<p><strong>Windows磁盘镜像备份与恢复</strong></p>
+<p>temp(临时文件夹)，位于<code>C:\Documents and Settings\Administrator\ ocal Setings\</code>内。很多临时文件放在这里，用来收藏夹，浏览网页的临时文件，编辑文件等。</p>
+<p><strong>网络配置信息收集</strong></p>
+<p><code>ipconfig /all</code></p>
+<p><strong>用户列表配置收集</strong></p>
+<pre><code class="language-bash">net user
+
+net localgroup administrators
+
+query user ||qwinsta
+</code></pre>
+<p><strong>进程列表信息收集</strong></p>
+<pre><code class="language-bash">tasklist /v
+
+wmic process list brief
+</code></pre>
+<p><strong>操作系统与软件信息收集</strong></p>
+<pre><code class="language-bash">systeminfo | findstr /B /C:&quot;OS名称&quot; /C:&quot;OS版本&quot;
+
+wmic product get name,version
+
+powershell &quot;Get-WmiObject -class Win32_Product |Select-Object -Property name,version&quot;
+</code></pre>
+<p><strong>端口列表信息收集</strong></p>
+<pre><code class="language-bash">netstat -ano
+</code></pre>
+<p><strong>补丁列表信息收集</strong></p>
+<pre><code class="language-bash">systeminfo
+wmic qfe get description,installedOn
+</code></pre>
+<p><strong>本机共享信息收集</strong></p>
+<pre><code class="language-bash">net share
+wmic share get name,path,status
+</code></pre>
+<p><strong>防火墙配置信息收集</strong></p>
+<p>防火墙配置信息收集: 关闭防火墙</p>
+<p>Windows Server 2003系统及之前版本</p>
+<pre><code class="language-bash">netsh firewall set opmode disable
+</code></pre>
+<p>Windows Server 2003之后系统版本</p>
+<pre><code class="language-bash">netsh advfirewall set allprofiles state off
+</code></pre>
+<p>查询防火墙相关配置 查看防火墙配置</p>
+<pre><code class="language-bash">netsh firewall show config
+</code></pre>
+<p>自定义防火墙日志储存位置</p>
+<pre><code class="language-bash">netsh advfirewall set currentprofile logging filename &quot;C:\windows\temp\fw.log&quot;
+</code></pre>
+<p>修改防火墙配置 Windows Server 2003系统及之前版本，允许指定程序全部连接</p>
+<pre><code class="language-bash">netsh firewall add allowedprogram c:\nc.exe &quot;allow nc&quot; enable
+</code></pre>
+<p>Windows Server 2003之后系统版本
+允许指定程序连入</p>
+<pre><code class="language-bash">netsh advfirewall firewall add rule name=&quot;pass nc&quot; dir=in action=allow program=&quot;C:\\nc.exe&quot;
+</code></pre>
+<p>允许指定程序连出</p>
+<pre><code class="language-bash">netsh advfirewall firewall add rule name=&quot;Allow nc&quot; dir=out action=allow program=&quot;C:\\nc.exe&quot;
+</code></pre>
+<p>允许3389端口放行</p>
+<pre><code class="language-bash">netsh advfirewall firewall add rule name=&quot;Remote Desktop&quot; protocol=TCP dir=in localport=3389 action=allow
+</code></pre>
+<p><strong>查询并开启远程连接服务</strong></p>
+<p>查询并开启远程连接服务 查询3389服务状态</p>
+<pre><code class="language-bash">* REG query &quot;HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server&quot; /v fDenyTSConnections
+* REG query &quot;HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server&quot; /v fDenyTSConnections
+* REG query &quot;HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp&quot; /v PortNumberREG query &quot;HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; /v PortNumberset /a Port=0xd3d
+</code></pre>
+<p>Windows Server 2008和Windows Server 2012开启3389方法</p>
+<pre><code class="language-bash">* wmic /namespace:\\root\cimv2\terminalservices path win32_terminalservicesetting where (__CLASS !=&quot;&quot;) call setallowtsconnections 1
+* wmic /namespace:\\root\cimv2\terminalservices path win32_tsgeneralsetting where (TerminalName='RDP-Tcp') call setuserauthenticationrequired 1
+* reg add &quot;HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER&quot; /v fSingleSessionPerUser /t REG_DWORD /d 0 /f
+</code></pre>
+<p>Windows Server 2003开启3389方法</p>
+<pre><code class="language-bash">* wmic path win32_terminalservicesetting where (__CLASS !=&quot;&quot;) call setallowtsconnections 1
+</code></pre>
+<p><strong>任务计划信息收集</strong></p>
+<pre><code class="language-bash">at
+schtasks /query /fo LIST /v
+</code></pre>
+<hr>
+<h3 id="linux分析排查相关技术"><strong>Linux分析排查相关技术</strong></h3>
+<p><strong>目录</strong></p>
+<p>一、Linux敏感目录tmp介绍</p>
+<p>二、Linux敏感目录开机自启动</p>
+<p>三、Linux敏感目录 基于时间和权限的筛选</p>
+<p>四、Linux可疑网络连接分析与关闭</p>
+<p>五、Linux进程所对文件分析</p>
+<p>六、Linux登录分析筛选异常登录</p>
+<p>七、Linux异常用户分析与排查</p>
+<p>八、Linux历史执行命令排查</p>
+<p>九、Linux计划任务排查</p>
+<p>十、Linux开启自启动项排查</p>
+<p>十一、Linux异常$PATH排查</p>
+<p>十二、Linux后门自动排查</p>
+<p><strong>一、Linux敏感目录tmp介绍</strong></p>
+<p>在Linux系统下一切都是文件。其中<code>/tmp</code>是一个特别的临时目录文件。每个用户都可以对它进行读写操作。因此一个普通用户可以对<code>/tmp</code>目录执行读写操作。</p>
+<p><img src="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/1.png" alt=""></p>
+<p>二、Linux敏感目录开机自启动</p>
+<p>查看开机启动项内容/etc/init.d/ ，恶意代码很有可能设置在开机自启动的位置</p>
+<p><img src="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/2.png" alt=""></p>
+<p>查看指定目录下文件时间顺序的排序：ls -alt | head -n 10</p>
+<p>查看文件时间属性：stat 文件名</p>
+<p><img src="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/3.png" alt=""></p>
+<p><strong>三、Linux敏感目录 基于时间和权限的筛选</strong></p>
+<p>新增文件分析:</p>
+<p>查找24小时内被修改的文件</p>
+<pre><code class="language-bash">find ./ -mtime 0 -name “*.php”
+</code></pre>
+<p>查找72小时内新增的文件</p>
+<pre><code class="language-bash">find ./ -ctime -2 -name “*.php”
+</code></pre>
+<p>权限查找:在Linux系统中，如果具有777权限，那么文件很可疑。</p>
+<pre><code class="language-bash">find ./ -iname“* .php&quot; perm 777
+</code></pre>
+<p>其中-iname忽略大小写，-perm 用于设定筛选文件权限</p>
+<p><strong>四、Linux可疑网络连接分析与关闭</strong></p>
+<p>在Iinux中可以使用netstat进行网络连接查看。</p>
+<pre><code class="language-bash">netstat - Print network connections,Trouting tables, interface statistics, masquerade connections, and multicast memberships
+</code></pre>
+<p>具体帮助信息查看<code>man netstat</code></p>
+<p>常用命令<code>netstat pantl</code> 查看处于tcp网络套接字相关信息。</p>
+<p><img src="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/4.png" alt=""></p>
+<p>关闭未知连接kill -9 pid 即可关闭</p>
+<p><strong>五、Linux进程所对文件分析</strong></p>
+<p>在Linux中可以使用ps查看进程相关信息。</p>
+<p>使用<code>ps aux</code>查看所有进程信息</p>
+<p><img src="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/5.png" alt=""></p>
+<p>使用<code>ps aux | grep PID</code>筛选出具体PID的进程信息. <code>lsof -i:端口号</code> 也可以实现类似功能</p>
+<p><img src="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/6.png" alt=""></p>
+<p><strong>六、Linux登录分析筛选异常登录</strong></p>
+<p>在Linux做的操作都会被记录到系统日志中，对于登录也可以查看日志信息查看是否有异常登录。last命令<code>last -i | grep -V 0.0.0.0</code>查看登录日志,筛选非本地登录。</p>
+<p><img src="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/7.png" alt=""></p>
+<p><code>w</code>命令实施登录查看：</p>
+<p><img src="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/8.png" alt=""></p>
+<p><strong>七、Linux异常用户分析与排查</strong></p>
+<p>在Linux中root用户是一个无敌的存在，可以在Linux上做任何事情。</p>
+<p>新建用户<code>useradd username </code></p>
+<p>设置密码<code>passwd username</code>输出密码</p>
+<p>设置用户uid和gid都为0. (root用户uid 为0 gid为0)修改文件即可</p>
+<pre><code class="language-bash">cat / etc/ passwd
+
+grep &quot;0:0&quot; /etc/ passwd
+
+ls -1 /etc/ passwd
+
+awk -F: '$3==0 {print $1}' /etc/ passwd
+
+awk -F: “$2==“!&quot; {print $1}' /etc/shadow或awk -F: length($2)==0 {print $1}' /etc/ shadow
+</code></pre>
+<p><img src="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/9.png" alt=""></p>
+<p><strong>八、Linux历史执行命令排查</strong></p>
+<p>在Iinux系统中默认会记录之前执行的命令<code>/root/ .bash_history</code>文件中。 用户可以使用<code>cat /root/ .bash_history</code> 进行查看或着使用<code>history</code> 命令进行查看:</p>
+<p>特别注意:wget (可能远程下载木马)、ssh (连接内网主机)、tar zip类命令(数据打包)、系统配置等(命令修改)</p>
+<p>更多参考：<a href="https://blog.csdn.net/xc_zhou/article/details/124741036">linux查看历史命令history</a></p>
+<p><strong>九、Linux计划任务排查</strong></p>
+<p>在Linux系统中可以使用命令<code>crontab</code>进行计划任务的设定</p>
+<p>其中-e可以用来编辑设定计划任务，-l可以用来查看当前计划任务，-d 用来删除计划任务。</p>
+<p>特别注意计划任务中未知内容</p>
+<p><strong>十、Linux开启自启动项排查</strong></p>
+<p>在Linux(Debian)系统中/etc/init.d/ 目录下保存着开机自启动程序的目录。</p>
+<p>用户可以直接使用/etc/init.d/程序名称status查看状态。</p>
+<p>使用update-rc.d程序名称disable 取消开机自启动。</p>
+<p><strong>十一、Linux异常$PATH排查</strong></p>
+<p>决定了shell将到哪些目录中寻找命令或程序，PATH的值是一系列目录，当您运行一个程序时，Linux在这些目录下进行搜寻编译链接。</p>
+<p><img src="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/10.png" alt=""></p>
+<p>修改PATH export PATH=$PATH:/ ust/locar/new/bin本次终端中有效，重启后无效。在/etc/profile或/home/ .bashrc(source ~/.bashrc )才能永久生效。</p>
+<p><img src="/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/11.png" alt=""></p>
+<p><strong>十二、Linux后门自动排查</strong></p>
+<p>Rkpunter具有以下功能</p>
+<p>1、家统命令检测，MD5校验</p>
+<p>2、Rookit检测</p>
+<p>3、本机敏感目录、系统配置异常检测</p>
+<p>安装: <code>apt install rkhunter --fix-missing</code></p>
+<p>基本使用:</p>
+<pre><code class="language-bash">rkhunter - check – sk
+
+--sk, -skip-key-c, - check           Check the local system
+
+press    Don't wait for a keypress after each test
+</code></pre>
+
+</article>
+
+
+      
+        <div class="my-4">
+    
+    <a href="https://su-pe4ch.github.io/tags/%E6%8A%80%E6%9C%AF/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 me-2 hover:text-eureka">#技术</a>
+    
+</div>
+      
+
+      
+
+
+
+      
+        <div class="py-2">
+  
+    <div class="my-8 flex flex-col items-center md:flex-row">
+      <a href="https://su-pe4ch.github.io/authors/pe4ch/" class="md:me-4 text-primary-text h-24 w-24">
+        
+        
+          <img
+            src="https://su-pe4ch.github.io/images/icon.png"
+            class="bg-primary-bg w-full rounded-full"
+            alt="Avatar"
+          />
+        
+      </a>
+      <div class="mt-4 w-full md:mt-0 md:w-auto">
+        <a
+          href="https://su-pe4ch.github.io/authors/pe4ch/"
+          class="mb-2 block border-b pb-1 text-lg font-bold"
+        >
+          <h3>Pe4ch</h3>
+        </a>
+        <span class="block pb-2">只要你希望，就能得到强烈的回应。</span>
+        
+          
+          
+          
+          
+          <a href="mailto:76320143@qq.com" class="me-2">
+            <i class="fas fa-envelope"></i>
+          </a>
+        
+          
+          
+          
+          
+          <a href="https://twitter.com/Alex_1111_" class="me-2">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+          
+          
+          
+          
+          <a href="https://github.com/su-pe4ch/" class="me-2">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+</div>
+
+      
+
+      
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="https://su-pe4ch.github.io/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/" class="block">从题目中学习内存取证的基本流程及vol2.6用法</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="https://su-pe4ch.github.io/posts/%E5%85%B3%E4%BA%8E%E6%A0%A1%E5%9B%AD%E7%BD%91%E9%87%8D%E5%A4%8D%E7%99%BB%E9%99%86%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="block">关于“校园网重复登陆”问题解决方法</a>
+      
+    </div>
+  </div>
+
+
+      
+
+
+
+  <div id="valine-comments" class="mt-4"></div>
+<script defer src="https://cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js" 
+  integrity="sha384-e0&#43;DNUCJo75aOAzHQbFWYBCM9/S4f0BhRJXvEgbE3mMS85RM20MSSGStHuNdY2QK"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Valine({
+      el: "#valine-comments",appId:"n2AXKC0RlunW4KwG6L6oHqGE-gzGzoHsz",appKey:"sq1MkMNgpleLlbDdFYCCNyKz",
+    })
+  });
+</script>
+
+    </div>
+    
+      <div class="col-span-2">
+        
+        
+          <div
+  class="
+    bg-primary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc  hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#目录">目录</a></li>
+    <li><a href="#一应急响应">一、应急响应</a></li>
+    <li><a href="#二数据保护技术">二、数据保护技术</a>
+      <ul>
+        <li><a href="#windows排查分析">Windows排查分析</a></li>
+        <li><a href="#linux分析排查相关技术"><strong>Linux分析排查相关技术</strong></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+        
+      </div>
+    
+
+    
+    
+  </div>
+
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        hljs.highlightAll();
+      });
+    </script>
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2022 <a href="https://www.yxyink.com/">Pe4ch</a>
+
+         
+        
+        <br>
+        <a style="margin-bottom: 2px;"><a id="ICP" href="https://beian.miit.gov.cn/" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer">冀ICP备2021024512号-1</a> | <a href="https://icp.gov.moe/?keyword=www.yxyink.com" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer">萌国 </a><a href="https://icp.gov.moe/?keyword=www.yxyink.com" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer"> 20220077号</a></a>
+    </p>
+</div></div>
+    </footer>
+  </body>
+</html>

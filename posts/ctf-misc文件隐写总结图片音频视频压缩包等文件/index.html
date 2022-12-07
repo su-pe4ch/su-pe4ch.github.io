@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>CTF MISC文件隐写总结(图片,音频,视频,压缩包等文件) | Pe4ch&#39;s博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.3" />
+<link rel="stylesheet" href="https://su-pe4ch.github.io/css/eureka.min.9cec6350e37e534b0338fa9a085bf06855de3b0f2dcf857e792e5e97b07ea905d4d5513db554cbc26a9c3da622bae92d.css">
+<script defer src="https://su-pe4ch.github.io/js/eureka.min.fa9a6bf6d7a50bb635b4cca7d2ba5cf3dfb095ae3798773f1328f7950028b48c17d06276594e1b5f244a25a6c969a705.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;600;700&amp;display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+<link rel="stylesheet" href="https://su-pe4ch.github.io/css/highlightjs.min.2958991528e43eb6fc9b8c4f2b8e052f79c4010718e1d1e888a777620e9ee63021c2c57ec7417a3108019bb8c41943e6.css" media="print" onload="this.media='all';this.onload=null">
+
+
+<script defer type="text/javascript" src="https://su-pe4ch.github.io/js/fontawesome.min.173caf5811f804bf2d43f8106beadead5935d403fb826f5a7176d5c669cee1fbb7e3fd172f63863bca501676b7222360.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="https://su-pe4ch.github.io/images/icon_hubdf2d941896e4cd8d5e843b83e502570_28983_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://su-pe4ch.github.io/images/icon_hubdf2d941896e4cd8d5e843b83e502570_28983_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="CTF MISC文件隐写总结(图片,音频,视频,压缩包等文件)">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"Posts",
+      "item":"https://su-pe4ch.github.io/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"CTF MISC文件隐写总结(图片,音频,视频,压缩包等文件)",
+      "item":"https://su-pe4ch.github.io/posts/ctf-misc%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93%E5%9B%BE%E7%89%87%E9%9F%B3%E9%A2%91%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://su-pe4ch.github.io/posts/ctf-misc%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93%E5%9B%BE%E7%89%87%E9%9F%B3%E9%A2%91%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6/"
+    },
+    "headline": "CTF MISC文件隐写总结(图片,音频,视频,压缩包等文件) | Pe4ch\u0027s博客",
+    "image": "https://su-pe4ch.github.io/posts/CTF-MISC%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93%28%E5%9B%BE%E7%89%87,%E9%9F%B3%E9%A2%91,%E8%A7%86%E9%A2%91,%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6%29/1.png",
+    "datePublished": "2022-11-13T18:43:59+08:00",
+    "dateModified": "2022-11-13T18:43:59+08:00",
+    "wordCount":  1060 ,
+    "author": {
+        "@type": "Person",
+        "name": ["Pe4ch"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "Pe4ch",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://su-pe4ch.github.io/images/icon.png"
+        }
+        },
+    "description": "CTF MISC文件隐写总结(图片,音频,视频,压缩包等文件)"
+}
+</script><meta property="og:title" content="CTF MISC文件隐写总结(图片,音频,视频,压缩包等文件) | Pe4ch&#39;s博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="https://su-pe4ch.github.io/images/icon.png">
+
+
+<meta property="og:url" content="https://su-pe4ch.github.io/posts/ctf-misc%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93%E5%9B%BE%E7%89%87%E9%9F%B3%E9%A2%91%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6/" />
+
+
+
+<meta property="og:description" content="CTF MISC文件隐写总结(图片,音频,视频,压缩包等文件)" />
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="Pe4ch&#39;s博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-11-13T18:43:59&#43;08:00" />
+
+
+<meta property="article:modified_time" content="2022-11-13T18:43:59&#43;08:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="MISC" />
+
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">Pe4ch&#39;s博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/authors/pe4ch/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/links/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">友联</a>
+            <a href="/fun/bomb/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">扫雷</a>
+            <a href="/fun/relax/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">摸鱼</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+  
+  
+  <div class="grid grid-cols-2 gap-4 lg:grid-cols-8 lg:pt-12">
+    <div
+      class=" bg-secondary-bg col-span-2 rounded px-6 py-8 lg:col-span-6"
+    >
+      <article class="prose">
+  <h1 class="mb-4">CTF MISC文件隐写总结(图片,音频,视频,压缩包等文件)</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2022-11-13</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>5 min read</span>
+  </div>
+
+  
+    <div class="me-6 my-2">
+      <i class="fas fa-folder me-1"></i>
+      
+        <a href="https://su-pe4ch.github.io/categories/misc/" class="hover:text-eureka"
+          >MISC</a
+        >
+      
+        
+          <span>, </span>
+        <a href="https://su-pe4ch.github.io/categories/ctf/" class="hover:text-eureka"
+          >CTF</a
+        >
+      
+    </div>
+  
+
+  
+</div>
+
+
+  
+  
+    <img src="https://su-pe4ch.github.io/posts/CTF-MISC%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93%28%E5%9B%BE%E7%89%87,%E9%9F%B3%E9%A2%91,%E8%A7%86%E9%A2%91,%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6%29/1.png" class="w-full" alt="Featured Image">
+  
+
+  <h1 id="ctf--misc文件隐-写总结图片-音频-视频-压缩包等文件">CTF- MISC文件隐 写总结(图片, 音频, 视频, 压缩包等文件)</h1>
+<p><strong>前置知识</strong></p>
+<p><strong>压缩包</strong></p>
+<p>​	基本思路</p>
+<p>​	⽂件结构</p>
+<p>​	暴力破解密码</p>
+<p>​	zip伪加密</p>
+<p>​	CRC碰撞</p>
+<p>​	明⽂攻击</p>
+<p>​	docx</p>
+<p><strong>图片</strong></p>
+<p>​	基本思路</p>
+<p>​	JPG</p>
+<p>​		特征</p>
+<p>​		Lsb</p>
+<p>​		IDAT隐写</p>
+<p>​		修改⾼度</p>
+<p>​	PNG</p>
+<p>​		特征</p>
+<p>​		XOR</p>
+<p>​	GIF</p>
+<p>​	BMP</p>
+<p>​	WebP</p>
+<p>​	BPG</p>
+<p>​	工具脚本使用</p>
+<p>​		Pillow</p>
+<p>​		identify</p>
+<p>​	音频</p>
+<p>​		WAV</p>
+<p>​		MP</p>
+<p>​		DTMF</p>
+<p>​		脚本⼯具</p>
+<p>​		wav</p>
+<p>​		python列表生成式</p>
+<p>​	视频</p>
+<p>​		逐帧分割</p>
+<p>​		其他</p>
+<p>​	PYC隐写</p>
+<p>​	乐符解密</p>
+<p>​	PDF</p>
+<p>​	word/xlsx</p>
+<p>​	pcap文件修复</p>
+<p>​	linux光盘文件 (ext)</p>
+<hr>
+<h2 id="前置知识">前置知识</h2>
+<ul>
+<li><code>file</code> 命令根据文件头，识别文件类型，如果文件头前边有数据就识别不出来了</li>
+<li><code>strings</code>输出文件中的可打印字符 可以发现⼀些提示信息或者特殊编码的信息 可以配合<code>-o</code> 参数获取所 有的ASCII字符偏移（字符串的位置）</li>
+<li><code>binwalk</code>命令根据文件头识别文件<code>-e</code>提取文件</li>
+<li><code>foremost</code>命令提取文件，建议两个分离命令都试一遍</li>
+<li>各种文件头本地搜索：文件头</li>
+</ul>
+<h2 id="压缩包">压缩包</h2>
+<p><strong>基本思路</strong></p>
+<ol>
+<li>尽量用<code>WinRAR</code>避免异常</li>
+<li>看属性</li>
+<li>伪加密</li>
+<li>暴力破解</li>
+<li>明文攻击</li>
+<li><code>crc32</code>碰撞</li>
+<li>多个压缩文件合并 <code>cat</code>文件名(按需) &gt; 保存文件名</li>
+</ol>
+<p><strong>文件结构</strong></p>
+<p>[记录文件头 + 文件结构 + 数据描述符] {此处可重复多次} + 核心目录 + ，目录结束标识</p>
+<p><strong>暴力破解密码</strong></p>
+<p>仅使用于密码⻓度⼩于等于6位的，⼤于6位时间会⾮常的⻓ 直接⽤a pchpr爆破</p>
+<p><strong>zip伪加密</strong></p>
+<p>原理：</p>
+<p>记录文件头以及核心目录区存在⼀个通用位标记（General purpose bit flag）的两个字节，不同的比特位有着不同的涵义  无加密：  压缩源文件数据区( ushort frFlags)的全局加密应当为  <code>00  00</code>，且压缩源文件 目录区的全局方式标记(ushort deFlags)应当为<code>00  00</code>伪加密  压缩源⽂件数据区 的全局加密应当为  <code>00 00</code>  且压缩⽂件⽬录区的全局方式标记应当为 <code>09 00</code> 真加密 压缩源⽂件数据区的全局加密应当为 <code>09 00</code> 且压缩源⽂件⽬录区的全局⽅式应当为 <code>09 00</code></p>
+<p><img src="/posts/CTF-MISC%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93(%E5%9B%BE%E7%89%87,%E9%9F%B3%E9%A2%91,%E8%A7%86%E9%A2%91,%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6)/1.png" alt=""></p>
+<p>修复工具：</p>
+<ul>
+<li><code>WinRAR</code>修复(也可以修复其他的修改内容 ) 工具 -&gt; 修复</li>
+<li><code>binwalk</code> <code>foremost</code>无视伪加密</li>
+<li><code>ZipCenOp.jar(win)</code>找到所在文件夹，在地址栏输⼊cmd，<code>java - jar ZipCenOp.jar r 文件名</code></li>
+</ul>
+<p><strong>CRC32碰撞</strong></p>
+<p>原理：</p>
+<p>压缩包的<code>crc32</code>的值是未加密状态计算来的</p>
+<p>如果文件内容很少（4字节左右）加密的密码却很长，可以使用<code>crc32</code>爆破获取原⽂件的内容</p>
+<p>脚本：<code>crc32-linux.py</code></p>
+<p>明文攻击</p>
+<p>基本条件</p>
+<ul>
+<li>⼀个加密的压缩包⽂件</li>
+<li>已知压缩⽂件的压缩⼯具，如winrar，7z</li>
+<li>已知压缩工具的版本</li>
+<li>已知压缩包文件中部分连续的内容，至少12字节，任意文件</li>
+</ul>
+<p>方法</p>
+<ol>
+<li>将明文文件压缩成压缩包</li>
+<li>确认两者的压缩方式相同，即对比压缩之后的crc32值</li>
+<li>使用apchpr进行明文攻击</li>
+</ol>
+<p>tips：</p>
+<p><img src="/posts/CTF-MISC%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93(%E5%9B%BE%E7%89%87,%E9%9F%B3%E9%A2%91,%E8%A7%86%E9%A2%91,%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6)/2.png" alt=""></p>
+<p>在攻击过程中密钥框如果有字符了就可以停止攻击，点击右侧使用已知密钥解密按钮</p>
+<p><strong>docx</strong></p>
+<p>包含<code>xml</code>⽂件的<code>zip</code>压缩包</p>
+<p>可能隐藏文件，信息在压缩包里，在word中看不到</p>
+<p>可以将<code>docx</code>后缀改为<code>zip</code></p>
+<h2 id="图片">图片</h2>
+<p>图片内容、图片分析、图片拼接、图片修复、EXIF、LSB</p>
+<p><strong>基本思路</strong></p>
+<ol>
+<li>看属性详细信息可以使用<code>exiftool（linux）</code>或者  <code>identify</code> 查看</li>
+<li><code>010editor</code>或<code>winhex</code>或<code>notepad++</code>打开看有无特殊信息，然后搜索ctf、CTF、flag、key等关键字</li>
+</ol>
+<p>​		<strong>string、file命令(kali)</strong> <code>strings test | grep - i flag  file 1.txt</code></p>
+<ol start="3">
+<li>检查图像的开头标志和结束标志是否正确，若不正确修改图像标志恢复图像，打开查看是否有flag或 ctf信息，（往往gif属于动图，需要分帧查看各帧图像组合所得数据 若不是直接的ctf或flag信息  需要考虑将其解码）</li>
+<li><code>stegslove</code>或者<code>binwalk/foremost</code>分离文件注意：foremost、binwalk会根据IEND块 提取png⽂件， IEND块后的内容会被忽略，提取不出来 ，可以隐藏信息</li>
+<li>修改高度png改IHDR、jpg改ffc2（16进制搜索）三个字节后的数据</li>
+<li>根据对应格式使用响应隐写检测⼯具</li>
+<li>看图片有无异常  盲水印 、f5、Lsb、guess、stegpy、steg、jphide、stegdetect</li>
+</ol>
+<p><strong>JPG</strong></p>
+<ul>
+<li>文件头标识( 2 bytes)：FF  D8文件结束标识( 2 bytes)：FF  D9</li>
+</ul>
+<p><strong>特征</strong></p>
+<p><strong>Lsb</strong></p>
+<p><strong>IDAT隐写</strong></p>
+<ol>
+<li>
+<p>使用<code>pngcheck</code>分析<code>pngcheck.exe - v file</code></p>
+</li>
+<li>
+<p>判断异常<code>IDAT串</code>，使用<code>winhex</code>等工具创建新文件</p>
+</li>
+<li>
+<p>根据创建后的新文件继续分析</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>jpg改ffc2（16进制搜索）三个字节后的数据</p>
+</li>
+<li>
+<p>stegdetect (win)先用这个⼯具检测隐写，然后再用下边的工具提取 （ 检查 jpg图片隐写方法, Stegdetect可以检测到通过JSteg、JPHide、OutGuess、Invisible Secrets、F 5、a ppendX和 Camouflage等这些隐写⼯具隐藏的信息 ）将图片复制到  stegdetect.exe 所在⽂件夹，打开  cmd 输入： stegdetect.exe - tjopi - s 10.0 [stego_file]   - s 修改检测算法的敏感度，该值的默认值为1。 检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可以文件包含敏感信息的可能性越大。 -t 设置要检测哪些隐写工具（默认检测jopi），可设置的选项如下：  j 检测图像中的信息是否是用jsteg嵌入的。     o 检测图像中的信息是否是用outguess嵌入的。     p 检测图像中的信息是否是用j phide嵌⼊的。     i 检测图像中的信息是否是用in visible secrets嵌入的</p>
+</li>
+<li>
+<p>jphide用于提取  jpg 隐写的信息 图形化操作，使用工具打开⽂件，点击工具栏的 seek 按钮，输入密码，点击ok保存为  txt ⽂件</p>
+</li>
+</ul>
+<p><img src="/posts/CTF-MISC%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93(%E5%9B%BE%E7%89%87,%E9%9F%B3%E9%A2%91,%E8%A7%86%E9%A2%91,%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6)/3.jpeg" alt=""></p>
+<ul>
+<li>
+<p>steghide(win)查看图⽚中嵌⼊的⽂件信息： steghide info out.jpg 提取 <strong>含有密码</strong> 的隐藏内容： steghide extract - sf out.jpg - p 12345 6 提取 <strong>不含有密码</strong> 的隐藏内容： steghide extract - sf out.jpg steghide爆破密码 有些题⽬⽤steg hide加密⽂件但是不给密码，此时就需要爆破，s teghide 本身并不支持爆破，需要⼀些其他的方法： <code>https://g ithub.com/Va5c0/Steghide-Brute-Force-Toolpythonsteg\_brute.py -b -d[字典] -f[jpg\_file]</code>需要安装的库： <strong>progressbar</strong> <code>pip install progressbar2</code></p>
+</li>
+<li>
+<p>F5（矩阵编码） (F5隐写，需要passwd） 在 <strong>kail</strong> 下切换到F5-steganography，在java Extract运行命令： java Extract 123456. jpg图片的绝对地址  - p 123456</p>
+</li>
+<li>
+<p><strong>outguess</strong>（基于频率变换） (<strong>kali下图片隐写</strong> + 可需要可不要 passwd ） outguess - r
+/root/angrybird.jpg(绝对路径) 123. txt(信息存放的⽂本) outguess - k 12345  - r 2.jpg out.txt - k后接密码  - r后接解密图片  输出文件  win下</p>
+<pre><code class="language-shell">D:\CTF\CTF⼯具合集\隐写\图像隐写\F5\f5-steganography\tests需要密码：java - jar f5.jar e -e msg.txt -p mypasswd -q 70 in.jpg out.jpg 不需要密码：j ava - jar f5.jar x -e out.txt pic.jpg 
+</code></pre>
+</li>
+</ul>
+<p><strong>PNG</strong></p>
+<ul>
+<li>文件头标识( 8 bytes)：<code>89  50  4E 47 0D 0A 1A 0A</code>文件结束：<code>00  00  00  00  49  45  4E 44  AE 42 60  82</code></li>
+</ul>
+<p><strong>特征</strong></p>
+<ul>
+<li><strong>格式</strong></li>
+</ul>
+<ol>
+<li>IHDR:Header Chunkpng 数据流中第⼀个数据块一个 png 数据流中只能有⼀个文件头数据块</li>
+<li>png格式内有很多 IDAT 数据块，每个数据块都是 zlib 格式压缩的，第⼀块 IDAT 数据块，有 ⼀个  zlib 格式的标志如：789cidat 块只有当上⼀个块充满时，才会继续下⼀个新的块，一个图片只有一个 789c 标志</li>
+</ol>
+<ul>
+<li>修改高度010 editortweakpng.exe打开图片提示IDHRcyc错误，表示文件尺寸被修改，且未修改crc值</li>
+<li><strong>LSB隐写</strong>在通道的最低位隐藏数据适用于png文件（无损压缩）和 pmb  ⽂件（无压缩） 工具： stegsolve 和  zstegstegsolve 提取  lsb 数据 选择  extract preview，bit plane order 可以多试试，其他固定即可</li>
+</ul>
+<p><img src="/posts/CTF-MISC%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93(%E5%9B%BE%E7%89%87,%E9%9F%B3%E9%A2%91,%E8%A7%86%E9%A2%91,%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6)/4.png" alt=""></p>
+<ul>
+<li>1.binwalk分析出<strong>两张图片</strong></li>
+<li>2.用stegslove打开选择image combiner选择XOR</li>
+<li>3.根据XOR后的结果继续分析</li>
+</ul>
+<p><strong>XOR</strong></p>
+<ul>
+<li>
+<p><strong>zsteg（kali）</strong></p>
+</li>
+<li>
+<p>zsteg可以检测<strong>PNG</strong>和BMP图片里的隐写数据（ <strong>lsb隐写、zlib、openstego等</strong> ），一般来讲用zsteg 解密的文件都为 bmp</p>
+</li>
+<li>
+<p>文件zsteg 图片名</p>
+</li>
+<li>
+<p>发现隐藏的数据，位置处于extradata:0将数据提取出来：<code>zsteg -E &quot;extradata:0&quot;/h ome/volcano/桌面/misc17.png &gt; 1.txt</code></p>
+</li>
+<li>
+<p>然后再<code>binwalk -e</code>把1.txt中的数据分离出来，拿到flag</p>
+</li>
+<li>
+<p><strong>BlindWaterMark （盲水印，kali）</strong></p>
+</li>
+<li>
+<p>第⼀种  正常的bwm</p>
+</li>
+<li>
+<p>打开 <strong>bwn.py</strong> （<a href="https://github.com/chishaxie/BlindWaterMark?login=from_csdn">项目地址</a>）所在⽂件夹，在文件夹中打开终端</p>
+</li>
+<li>
+<p>1.png为无水印原图  2.png为有盲水印的图  flag.png为解出来的图片 &gt; <code>python bwn.py decode 1.png 2.png flag.png</code></p>
+</li>
+<li>
+<p>第⼆种  频域盲水印</p>
+</li>
+<li>
+<pre><code class="language-python">import cv2import numpy as npimport randomimport osfrom argparse
+import ArgumentParserALPHA = 5 def build\ _parser(): parser =
+    ArgumentParser() parser.add\ _argument('- - original', dest =
+        'ori', required = True) parser.add\ _argument('- - image',
+        dest = 'img', required = True) parser.add\ _argument(
+        '- - result', dest = 'res', required = True) parser.add\ _argument(
+        '- - alpha', dest = 'alpha',
+        default = ALPHA) return parserdef main(): parser = build\ _parser() options =
+        parser.parse\ _args() ori = options.oriimg = options.imgres =
+        options.resalpha = options.alphaif not os.path.isfile(ori):
+        parser.error(&quot;original image %s does not exist.&quot; % ori) if not os
+    .path.isfile(img): parser.error(&quot;image %s does not exist.&quot; % img) decode(
+        ori, img, res, alpha) def decode(ori\ _path, img\ _path, res\ _path,
+        alpha): ori = cv2.imread(ori\ _path) img = cv2.imread(img\ _path) ori\ _f =
+    np.fft.fft2(ori) img\ _f = np.fft.fft2(img) height, width = ori.shape[
+        0], ori.shape[1] watermark = (ori\ _f - img\ _f) /
+    alphawatermark = np.real(watermark) res = np.zeros(watermark.shape) random
+    .seed(height + width) x = range(height / 2) y = range(width) random
+    .shuffle(x) random.shuffle(y) for i in range(height / 2): for j in
+    range(width): res[x[i]][y[j]] = watermark[i][j] cv2.imwrite(res\ _path,
+        res, [int(cv2.IMWRITE\ _JPEG\ _QUALITY), 100]) if\ _\ _name\ _\ _
+    == '\_\_main\_\_': main()
+</code></pre>
+</li>
+</ul>
+<p>使用</p>
+<p><code>python pinyubwm.py --original 1.png --image 2.png --result out.png</code></p>
+<p>查看 <strong>out.png</strong> 即可，如果⽆法得到正常图片，可将<strong>1.png</strong> 和<strong>2.png</strong>调换位置再次尝试</p>
+<ul>
+<li><strong>lsb的py脚本解密（lsb隐写+需要passwd）</strong> cloacked-pixel-master使用<code>python lsb.py extract [stego_file][out_file][password]</code></li>
+<li><strong>pngcheck（检查IDAT块_win）</strong> 在 <strong>pngcheck.exe</strong> 所在⽂件夹打开<code>cmdpngcheck.exe -v 123.png</code>可检查  png 的  IDAT 块是否有问题相关题⽬可参考： <a href="https://blog.csdn.net/u010391191/article/details/80818785">https://blog.csdn.net/u010391191/article/details/80818785</a>有关解题脚本可参考 FzWjScJ 师傅 的blog：  <a href="http://www.fzwjscj.xyz/index.php/archives/17/">http://www.fzwjscj.xyz/index.php/archives/17/</a></li>
+<li><strong>java盲水印</strong>使用工具提取<code>java -jar .\BlindWatermark.jar decode -c .\f lag.png output.png</code></li>
+<li><strong>apng图片</strong>实际是动图，使用apngdis.exe进行分离</li>
+<li>如果用tweakpng打开发现很多报错，就用pngdebuger看报错是不是藏了啥</li>
+</ul>
+<p><strong>GIF</strong></p>
+<ul>
+<li>特征文件头标识( 6 bytes)：47 49  46  38  39(37) 61 即GIF89a</li>
+<li>动图，多张图片组成，有多个元数据（属性信息）</li>
+<li>时间轴隐写 ，利用多帧之间的时间间隔不同，来隐藏信息（大多为⼆进制 01 ）</li>
+</ul>
+<p><strong>BMP</strong></p>
+<ul>
+<li><strong>特征</strong>无损，无压缩格式</li>
+<li><strong>LSB隐写</strong></li>
+<li>频域盲水印隐写使用<code>matlab</code></li>
+</ul>
+<p><strong>WebP</strong></p>
+<pre><code>安装（kali中）apt install webp需要的时候按Y即可使用
+
+cwebp - 编码器工具：可将png转为webp 
+
+cwebp 1.png -o 2.webp  
+
+dwebp - 解码器工具：可将webp转为png 
+
+dwebp 1.webp -o 2.png  
+
+vwebp - 查看器工具：可直接查看webp格式图片
+
+webp 1.webp  
+
+webpinfo - 格式查看⼯具：可打印出WebP⽂件的块级结构以及基本完整性检查
+webpinfo 1.webp  
+
+其余（gif2webp、img2webp等可见 官方文档）
+</code></pre>
+<ul>
+<li>exiftool（查看图片exif信息） exiftool 1.jpg # 显示图片所有信息</li>
+<li>exiftool 1.jpg | grep flag # 查看图片有关<code>flag</code>字符的信息</li>
+<li>exiftool * #查看此文件夹所有图片信息</li>
+<li>exiftool -b -ThumbnailImage attachment.jpg &gt;flag.jpg # 提取缩略图 *</li>
+</ul>
+<p><strong>BPG</strong></p>
+<p><img src="/posts/CTF-MISC%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93(%E5%9B%BE%E7%89%87,%E9%9F%B3%E9%A2%91,%E8%A7%86%E9%A2%91,%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6)/5.png" alt=""></p>
+<p>⽂件头：425047 FB</p>
+<p>在线网站查看即可：https://webencoder.libbpg.org/show.html</p>
+<p>工具脚本使用</p>
+<p><strong>Pillow</strong></p>
+<p>pil升级版，下边是简单使用</p>
+<p>from PIL import Image # 打开⼀个png图像文件，注意是当前路径: im = Image.open(&ldquo;file.png&rdquo;) # 获得图像尺寸: w, h = im.size im.show() # 把图像用png格式保存: im.save(&ldquo;another.png&rdquo;) # 图像处理- 改变尺寸  im.resize((32, 32)) # 图像处理-旋转  im.rotate(90) # 像素处理- 将图像像素数组方式读取(整体) im.getdata() # 像素处理-数组生成图像(整体) im.putdata() # 像素处理- 读取单个像素的rgb值( 单个像素) im.getpixel((x,y)) # 像素处理-读取 单个像素的rgb值( 单个像素) im.putpixel((x,y),(0,0,0)) im.copy() im = Image.new(&ldquo;RGB&rdquo;,(1,1),data)</p>
+<p><strong>⼆进制数据生成二维码</strong></p>
+<p>根据⼆进制字符串的长度，开方确定图片尺寸</p>
+<p>from PIL import Pillow s = &ldquo;⼆进制字符串&rdquo;  im = Image.new(&ldquo;RGB&rdquo;,(25, 25)) im.putdata([(255, 255, 255) if i==&ldquo;1&rdquo; else (0,0,0) for i in s]) im.resize((100, 100)).show()</p>
+<p><strong>identify</strong></p>
+<p>功能和exiftool相同，显示信息更多，用法如下</p>
+<pre><code class="language-shell">identify -verbose pic.png  
+</code></pre>
+<p>获取指定信息</p>
+<pre><code class="language-shell">identify -format &quot;%[EXIF:copyright] %c\n &quot; pic.png # copyright可以替换  
+</code></pre>
+<h2 id="音频">音频</h2>
+<p><strong>WAV</strong></p>
+<p>无损压缩格式</p>
+<p><strong>基本结构  chunk</strong></p>
+<ul>
+<li>RIFF chunk</li>
+<li>Format chunk</li>
+<li>Data chunk（小端）</li>
+</ul>
+<p><img src="/posts/CTF-MISC%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93(%E5%9B%BE%E7%89%87,%E9%9F%B3%E9%A2%91,%E8%A7%86%E9%A2%91,%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6)/9.png" alt=""></p>
+<p><strong>基本思路</strong></p>
+<ul>
+<li><strong>时域隐写</strong>将数据隐藏在时域波形中 解题方法：总体观察 + 提取数据工具：audacity 打开音频查看波形先确定数据在那个时间段，放大进行观察波形异常</li>
+<li><strong>频域隐写</strong>使用工具  audacity 打开音频，切换至频谱图</li>
+</ul>
+<p><img src="/posts/CTF-MISC%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93(%E5%9B%BE%E7%89%87,%E9%9F%B3%E9%A2%91,%E8%A7%86%E9%A2%91,%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6)/6.png" alt=""></p>
+<ul>
+<li><strong>LSB隐写</strong>wav 格式优先考虑lsb隐写，使⽤silenteye⼯具</li>
+<li><strong>steghide（wav隐藏信息）</strong> 使用方法在本文jpg的介绍中</li>
+</ul>
+<p><strong>MP3</strong></p>
+<p>压缩格式</p>
+<ul>
+<li><strong>mp3steg</strong> mp3加解密工具 有key的话用mp3steg在MP3stego文件夹中打开cmd，然后将 <strong>Decode .exe</strong> 拖到命令行里，将要解密的⽂件放在⽂件夹中 <code>encode -E hidden\_text.txt -P pass svega.wavsvega\_stego.mp3 Decode.exe -X -P pass(密码) svega\_stego.mp3(要拷⻉到⽬录下) //解码</code></li>
+<li><strong>m4a 文件头</strong> 00  00  00  20  66  74 79 70 4D 34  41 20 00  00  00  00</li>
+</ul>
+<p><strong>DTMF</strong></p>
+<p>DTMF 双音多频，现在电话拨号机制，每个电话按键都有不同的声音</p>
+<p>特点就是电话按键声音</p>
+<p><img src="/posts/CTF-MISC%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93(%E5%9B%BE%E7%89%87,%E9%9F%B3%E9%A2%91,%E8%A7%86%E9%A2%91,%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6)/7.png" alt=""></p>
+<p>音频图中查看</p>
+<p><img src="/posts/CTF-MISC%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93(%E5%9B%BE%E7%89%87,%E9%9F%B3%E9%A2%91,%E8%A7%86%E9%A2%91,%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6)/8.png" alt=""></p>
+<ul>
+<li>在线工具http://dialabc.com/sound/detect/</li>
+<li>本地工具  <strong>tdmf ton decoder</strong></li>
+<li><a href="https://pas-products.com/download.html">https://pas-products.com/download.html</a>免费版有限制</li>
+</ul>
+<h2 id="脚本工具">脚本工具</h2>
+<p><strong>wav</strong></p>
+<p>python wav 库</p>
+<pre><code>import wave w = wave.open(file) w.getframerate()  # 返回采样频率  w.getnframes()  # 返回总帧数  w.readframes(n)  # 读取前n帧（不⼀定是n字节）
+</code></pre>
+<p><strong>python列表生成式</strong></p>
+<p>快速将01⼆进制转换成英文字符</p>
+<p>&lsquo;&rsquo;.join(chr(int(s[i:i+7],2)) for i in range(0,len(s),7))</p>
+<h2 id="视频">视频</h2>
+<p><strong>逐帧分割</strong></p>
+<p>video to pic.exe或者ffmpeg.exe</p>
+<p><strong>其他</strong></p>
+<p>视频中的音频、视频放到010中查看</p>
+<h2 id="pyc隐写">PYC隐写</h2>
+<p>导入 python 脚本时在目录下会生成个一个相应的  pyc 文件，是  pythoncodeobj 的持久化储存形式, 加速下⼀次的装载</p>
+<ul>
+<li>uncompyle6（pyc 文件反编译）</li>
+</ul>
+<pre><code>uncompyle6 test.pyc &gt; test.py
+</code></pre>
+<ul>
+<li>Stegosaurus（pyc 隐写_win） 版本：Python 3.6 or later使用在 stegosa urus.py 所在文件夹打开 cmd，输入： python stegosaurus.py - x [pyc_file] 基本用法 查看-h</li>
+</ul>
+<h2 id="乐符解密"><strong>乐符解密</strong></h2>
+<p><a href="https://www.qqxiuzi.cn/bianma/wenbenjiami.php?s=yinyue">https://www.qqxiuzi.cn/bianma/wenbenjiami.php?s=yinyue</a></p>
+<h2 id="pdf">PDF</h2>
+<pre><code class="language-shell">pdfinfo 文件名  #查看pdf属性  pdftotext 文件名  #到处文本 
+</code></pre>
+<p>常规思路解题法：复制pdf文档的内容到txt，查看是否多出一些内容。</p>
+<h2 id="wordxlsx">word/xlsx</h2>
+<ul>
+<li>将文件后缀改为zip，查找里边的flag</li>
+<li>flag为白色字符串，ctrl+a将颜色改为白色</li>
+</ul>
+<h2 id="pcap文件修复">pcap文件修复</h2>
+<ul>
+<li>winpcapfix工具</li>
+<li>在线修复：https://f00l.de/hacking/pcapfix.php</li>
+</ul>
+<h2 id="linux光盘件-ext3">linux光盘⽂件( ext3)</h2>
+<p>linux挂载光盘，使用notepad或者strings、file命令来搜索关键词</p>
+<pre><code class="language-shell">strings test | grep -i flag  find | grep 'flag' 或 find -name 'flag\*'
+</code></pre>
+<p><code>mount</code>命令挂载文件。</p>
+
+</article>
+
+
+      
+        <div class="my-4">
+    
+    <a href="https://su-pe4ch.github.io/tags/misc/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 me-2 hover:text-eureka">#MISC</a>
+    
+</div>
+      
+
+      
+
+
+
+      
+        <div class="py-2">
+  
+    <div class="my-8 flex flex-col items-center md:flex-row">
+      <a href="https://su-pe4ch.github.io/authors/pe4ch/" class="md:me-4 text-primary-text h-24 w-24">
+        
+        
+          <img
+            src="https://su-pe4ch.github.io/images/icon.png"
+            class="bg-primary-bg w-full rounded-full"
+            alt="Avatar"
+          />
+        
+      </a>
+      <div class="mt-4 w-full md:mt-0 md:w-auto">
+        <a
+          href="https://su-pe4ch.github.io/authors/pe4ch/"
+          class="mb-2 block border-b pb-1 text-lg font-bold"
+        >
+          <h3>Pe4ch</h3>
+        </a>
+        <span class="block pb-2">只要你希望，就能得到强烈的回应。</span>
+        
+          
+          
+          
+          
+          <a href="mailto:76320143@qq.com" class="me-2">
+            <i class="fas fa-envelope"></i>
+          </a>
+        
+          
+          
+          
+          
+          <a href="https://twitter.com/Alex_1111_" class="me-2">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+          
+          
+          
+          
+          <a href="https://github.com/su-pe4ch/" class="me-2">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+</div>
+
+      
+
+      
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="https://su-pe4ch.github.io/posts/unctf2022web%E9%83%A8%E5%88%86wp/" class="block">UNCTF2022-WEB部分WP</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="https://su-pe4ch.github.io/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/" class="block">从题目中学习内存取证的基本流程及vol2.6用法</a>
+      
+    </div>
+  </div>
+
+
+      
+
+
+
+  <div id="valine-comments" class="mt-4"></div>
+<script defer src="https://cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js" 
+  integrity="sha384-e0&#43;DNUCJo75aOAzHQbFWYBCM9/S4f0BhRJXvEgbE3mMS85RM20MSSGStHuNdY2QK"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Valine({
+      el: "#valine-comments",appId:"n2AXKC0RlunW4KwG6L6oHqGE-gzGzoHsz",appKey:"sq1MkMNgpleLlbDdFYCCNyKz",
+    })
+  });
+</script>
+
+    </div>
+    
+      <div class="col-span-2">
+        
+        
+          <div
+  class="
+    bg-primary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc  hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#前置知识">前置知识</a></li>
+    <li><a href="#压缩包">压缩包</a></li>
+    <li><a href="#图片">图片</a></li>
+    <li><a href="#音频">音频</a></li>
+    <li><a href="#脚本工具">脚本工具</a></li>
+    <li><a href="#视频">视频</a></li>
+    <li><a href="#pyc隐写">PYC隐写</a></li>
+    <li><a href="#乐符解密"><strong>乐符解密</strong></a></li>
+    <li><a href="#pdf">PDF</a></li>
+    <li><a href="#wordxlsx">word/xlsx</a></li>
+    <li><a href="#pcap文件修复">pcap文件修复</a></li>
+    <li><a href="#linux光盘件-ext3">linux光盘⽂件( ext3)</a></li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+        
+      </div>
+    
+
+    
+    
+  </div>
+
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        hljs.highlightAll();
+      });
+    </script>
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2022 <a href="https://www.yxyink.com/">Pe4ch</a>
+
+         
+        
+        <br>
+        <a style="margin-bottom: 2px;"><a id="ICP" href="https://beian.miit.gov.cn/" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer">冀ICP备2021024512号-1</a> | <a href="https://icp.gov.moe/?keyword=www.yxyink.com" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer">萌国 </a><a href="https://icp.gov.moe/?keyword=www.yxyink.com" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer"> 20220077号</a></a>
+    </p>
+</div></div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>网络安全 on Pe4ch&#39;s博客</title>
+    <link>https://su-pe4ch.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</link>
+    <description>Recent content in 网络安全 on Pe4ch&#39;s博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy; 2022 &lt;a href=&#34;https://www.yxyink.com/&#34;&gt;Pe4ch&lt;/a&gt;
+</copyright>
+    <lastBuildDate>Wed, 12 Oct 2022 11:34:05 +0800</lastBuildDate><atom:link href="https://su-pe4ch.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>网络安全应急响应基础与流程技术</title>
+      <link>https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/</link>
+      <pubDate>Wed, 12 Oct 2022 11:34:05 +0800</pubDate>
+      
+      <guid>https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/</guid>
+      <description>网络安全应急响应基础与流程技术 目录 一、认识应急响应
+二、数据保护技术
+三、应急响应事件检测
+一、应急响应 网络安全的特性 网络应急响应的定义
+应急响应的准备
+事件发生前，做好日常运维检测，收集各类故障信息。区分系统自身故障和人为破坏。区分一般事件和应急响应事件。
+充分获取当前信息从而启动相应的预案。
+事件上报，确认应急事件类型和应急事件的等级通知相关人员，启用应急预案。
+启用网络安全应急响应预案：预案内容；小组划分。
+应急响应保护
+一般情况下，各种木马、病毒等恶意程序，都会在计算机开机启动过程中自启动。
+二、数据保护技术 Windows排查分析 Windows磁盘镜像备份与恢复
+temp(临时文件夹)，位于C:\Documents and Settings\Administrator\ ocal Setings\内。很多临时文件放在这里，用来收藏夹，浏览网页的临时文件，编辑文件等。
+网络配置信息收集
+ipconfig /all
+用户列表配置收集
+net user net localgroup administrators query user ||qwinsta 进程列表信息收集
+tasklist /v wmic process list brief 操作系统与软件信息收集
+systeminfo | findstr /B /C:&amp;quot;OS名称&amp;quot; /C:&amp;quot;OS版本&amp;quot; wmic product get name,version powershell &amp;quot;Get-WmiObject -class Win32_Product |Select-Object -Property name,version&amp;quot; 端口列表信息收集
+netstat -ano 补丁列表信息收集
+systeminfo wmic qfe get description,installedOn 本机共享信息收集
+net share wmic share get name,path,status 防火墙配置信息收集</description>
+    </item>
+    
+  </channel>
+</rss>

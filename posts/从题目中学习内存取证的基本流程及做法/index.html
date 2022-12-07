@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>从题目中学习内存取证的基本流程及vol2.6用法 | Pe4ch&#39;s博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.3" />
+<link rel="stylesheet" href="https://su-pe4ch.github.io/css/eureka.min.9cec6350e37e534b0338fa9a085bf06855de3b0f2dcf857e792e5e97b07ea905d4d5513db554cbc26a9c3da622bae92d.css">
+<script defer src="https://su-pe4ch.github.io/js/eureka.min.fa9a6bf6d7a50bb635b4cca7d2ba5cf3dfb095ae3798773f1328f7950028b48c17d06276594e1b5f244a25a6c969a705.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;600;700&amp;display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+<link rel="stylesheet" href="https://su-pe4ch.github.io/css/highlightjs.min.2958991528e43eb6fc9b8c4f2b8e052f79c4010718e1d1e888a777620e9ee63021c2c57ec7417a3108019bb8c41943e6.css" media="print" onload="this.media='all';this.onload=null">
+
+
+<script defer type="text/javascript" src="https://su-pe4ch.github.io/js/fontawesome.min.173caf5811f804bf2d43f8106beadead5935d403fb826f5a7176d5c669cee1fbb7e3fd172f63863bca501676b7222360.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="https://su-pe4ch.github.io/images/icon_hubdf2d941896e4cd8d5e843b83e502570_28983_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://su-pe4ch.github.io/images/icon_hubdf2d941896e4cd8d5e843b83e502570_28983_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="从题目中学习内存取证的基本流程及做法">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"Posts",
+      "item":"https://su-pe4ch.github.io/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"从题目中学习内存取证的基本流程及vol2.6用法",
+      "item":"https://su-pe4ch.github.io/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://su-pe4ch.github.io/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/"
+    },
+    "headline": "从题目中学习内存取证的基本流程及vol2.6用法 | Pe4ch\u0027s博客",
+    "image": "https://su-pe4ch.github.io/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/9.png",
+    "datePublished": "2022-11-09T20:35:18+08:00",
+    "dateModified": "2022-11-09T20:35:18+08:00",
+    "wordCount":  271 ,
+    "author": {
+        "@type": "Person",
+        "name": ["Pe4ch"]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "Pe4ch",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://su-pe4ch.github.io/images/icon.png"
+        }
+        },
+    "description": "从题目中学习内存取证的基本流程及做法"
+}
+</script><meta property="og:title" content="从题目中学习内存取证的基本流程及vol2.6用法 | Pe4ch&#39;s博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="https://su-pe4ch.github.io/images/icon.png">
+
+
+<meta property="og:url" content="https://su-pe4ch.github.io/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/" />
+
+
+
+<meta property="og:description" content="从题目中学习内存取证的基本流程及做法" />
+
+
+
+<meta property="og:locale" content="en" />
+
+
+
+
+<meta property="og:site_name" content="Pe4ch&#39;s博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2022-11-09T20:35:18&#43;08:00" />
+
+
+<meta property="article:modified_time" content="2022-11-09T20:35:18&#43;08:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+<meta property="article:tag" content="技术" />
+
+
+
+
+
+<meta property="og:see_also" content="https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/" />
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">Pe4ch&#39;s博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/authors/pe4ch/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于</a>
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  selected-menu-item  me-4">文章</a>
+            <a href="/links/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">友联</a>
+            <a href="/fun/bomb/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">扫雷</a>
+            <a href="/fun/relax/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">摸鱼</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">Light</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">Dark</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">Auto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+  
+  
+  <div class="grid grid-cols-2 gap-4 lg:grid-cols-8 lg:pt-12">
+    <div
+      class=" bg-secondary-bg col-span-2 rounded px-6 py-8 lg:col-span-6"
+    >
+      <article class="prose">
+  <h1 class="mb-4">从题目中学习内存取证的基本流程及vol2.6用法</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2022-11-09</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>2 min read</span>
+  </div>
+
+  
+    <div class="me-6 my-2">
+      <i class="fas fa-folder me-1"></i>
+      
+        <a href="https://su-pe4ch.github.io/categories/%E6%8A%80%E6%9C%AF/" class="hover:text-eureka"
+          >技术</a
+        >
+      
+        
+          <span>, </span>
+        <a href="https://su-pe4ch.github.io/categories/ctf/" class="hover:text-eureka"
+          >CTF</a
+        >
+      
+    </div>
+  
+
+  
+</div>
+
+
+  
+  
+    <img src="https://su-pe4ch.github.io/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/9.png" class="w-full" alt="Featured Image">
+  
+
+  <h1 id="0x01-memlabs-lab_0--never-too-late-mister">0x01 MemLabs Lab_0 | Never Too Late Mister</h1>
+<p>描述：</p>
+<p>My friend John is an &ldquo;environmental&rdquo; activist and a humanitarian. He hated the ideology of Thanos from the Avengers: Infinity War. He sucks at programming. He used too many variables while writing any program. One day, John gave me a memory dump and asked me to find out what he was doing while he took the dump. Can you figure it out for me?</p>
+<p>我的朋友约翰是一位“环保”活动家和人道主义者。他讨厌复仇者联盟中灭霸的观点：无限战争。他编程很烂。他在编写任何程序时使用了太多变量。有一天，约翰给了我一个内存转储，并让我找出他在转储时在做什么。你能帮我弄清楚吗？</p>
+<p>这题是常规的取证思路：</p>
+<p>先通过<code>imageinfo</code>看一下：</p>
+<p>备注：kdbgscan和imageinfo都只适用于windows的镜像</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/9.png" alt=""></p>
+<p>这里vol给出的建议是：Win7SP1x86_23418</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/10.png" alt=""></p>
+<p>查看一下运行进程，发现有运行过cmd</p>
+<pre><code class="language-shell">./volatility -f /root/Desktop/Challenge/Challenge.raw --profile=Win7SP1x86_23418 pslist
+</code></pre>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/11.png" alt=""></p>
+<p>有一个可疑文件，用<code>cmd</code>调用<code>python.exe</code>，这个地方可以用<code>consoles</code>插件，来查看执行的命令行历史记录（扫描_<code>CONSOLE_INFORMATION</code>信息）</p>
+<pre><code class="language-shell">./volatility -f /root/Desktop/Challenge/Challenge.raw --profile=Win7SP1x86_23418 consoles
+</code></pre>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/12.png" alt=""></p>
+<p>得到一串字符串<code>335d366f5d6031767631707f</code></p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/13.png" alt=""></p>
+<p>此时结合上面题目描述<code>&quot;environmental&quot; activist</code>环保主义者提示，应该是要查看环境变量：</p>
+<pre><code class="language-shell">./volatility -f /root/Desktop/Challenge/Challenge.raw --profile=Win7SP1x86_23418 envars
+</code></pre>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/14.png" alt=""></p>
+<p>非常多的环境变量。。</p>
+<p>不过后面有提到Thanos，尝试在环境变量里面搜一下：</p>
+<pre><code class="language-shell">./volatility -f /root/Desktop/Challenge/Challenge.raw --profile=Win7SP1x86_23418 envars | grep &quot;Thanos&quot; 
+</code></pre>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/15.png" alt=""></p>
+<p>发现环境变量指向<code>xor and password</code></p>
+<p>先提取password：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/16.png" alt=""></p>
+<p>加密方式是md5：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/17.png" alt=""></p>
+<p>这里wp是爆破出来了，但是本地好像实现不了</p>
+<p>这里直接给出第一部分flag：flag{you_are_good_but</p>
+<p>剩下一部分，来处理提示中的<code>xor</code>，目标字符串应该是前面hex解密出的乱码</p>
+<p>不过不清楚异或字符是啥，只能爆破了</p>
+<p>师傅的脚本：</p>
+<pre><code class="language-shell">a = &quot;335d366f5d6031767631707f&quot;.decode(&quot;hex&quot;)
+for i in range(0,255):
+    b = &quot;&quot;
+    for j in a:
+        b = b + chr(ord(j) ^ i)
+    print b
+</code></pre>
+<p><strong>flag{you_are_good_but1_4m_b3tt3r}</strong></p>
+<h1 id="0x02-memlabs-lab_1--beginners-luck">0x02 MemLabs Lab_1 | Beginner&rsquo;s Luck</h1>
+<h2 id="challenge-description">Challenge description</h2>
+<p>My sister&rsquo;s computer crashed. We were very fortunate to recover this memory dump. Your job is get all her important files from the system. From what we remember, we suddenly saw a black window pop up with some thing being executed. When the crash happened, she was trying to draw something. Thats all we remember from the time of crash.</p>
+<p><strong>Note</strong> : This challenge is composed of 3 flags.</p>
+<blockquote>
+<p>我姐姐的电脑坏了。我们非常幸运地恢复了这个内存转储。你的工作是从系统中获取她所有的重要文件。根据我们的记忆，我们突然看到一个黑色的窗口弹出，上面有一些正在执行的东西。崩溃发生时，她正试图画一些东西。这就是电脑崩溃时我们所记得的一切。</p>
+<p><strong>注意</strong> ：此挑战由 3 个flag组成。</p>
+</blockquote>
+<h2 id="progress">Progress</h2>
+<p><strong>flag1</strong></p>
+<p>附件下来是一个跟图片一样的文件，使用imageinfo识别图像信息：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/18.png" alt=""></p>
+<p>看题目描述：看见了一个黑色的窗口弹出，可以猜测为cmd.exe，使用plist打印一下所有正在运行的程序：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/19.png" alt=""></p>
+<p>通过consoles提取命令历史记录：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/20.png" alt=""></p>
+<p>找到一个类似base的加密字符，拖到工具里直接爆破一下：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/21.png" alt=""></p>
+<p>得到flag1</p>
+<p><strong>flag2</strong></p>
+<p>When the crash happened, she was trying to draw something.</p>
+<p>查找绘画进程：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/22.png" alt=""></p>
+<p>这个mspaint.exe进程与绘画有关，PID是2424</p>
+<p>使用mendump：提取出指定进程：</p>
+<pre><code class="language-shell">./volatility -f /root/Desktop/MemLabs-Lab1/MemoryDump_Lab1.raw --profile=Win7SP1x64 memdump -p 2424 -D ./
+</code></pre>
+<p>这边我提取到<code>./</code>也就是当前目录下：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/23.png" alt=""></p>
+<p>修改文件名后缀为<code>data</code>，导入GIMP</p>
+<p>调整一下偏移量和宽高：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/24.png" alt=""></p>
+<p>水平翻转，导出旋转一下就可以清晰的看到flag了：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/25.png" alt=""></p>
+<p><strong>flag{Good_Boy_good_girl}</strong></p>
+<p><strong>flag3</strong></p>
+<p>在进程WinRAR里面：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/26.png" alt=""></p>
+<p>有一个Important.rar压缩包，根据地址提取出来：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/27.png" alt=""></p>
+<p>检测是rar文件类型。修改文件名解压发现需要密码：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/28.png" alt=""></p>
+<p><code>hashdump</code>提取：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/29.png" alt=""></p>
+<blockquote>
+<p>hashdump提取有两个HASH，第一个是使用<code>LANMAN</code>算法，这种散列值非常不安全，在<code>Vista</code>以来的<code>Windows</code>系统已经不再采用<code>LANMAN HASH</code>。因此这个hash前会提供一个<code>aad</code>开头的虚拟值。</p>
+<p>第二个HASH是我们常说的<code>NTLM HASH</code>，也好不到哪去。</p>
+</blockquote>
+<p>这个地方要解密NTLM，看用户名我盲猜是最后一个<code>f4ff64c8baac57d22f22edc681055ba6</code>：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/30.png" alt=""></p>
+<p>拿解密到的字符串怎么试都不对，结果发现，不用解密，换成大写：</p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/31.png" alt=""></p>
+<p><img src="/posts/%E4%BB%8E%E9%A2%98%E7%9B%AE%E4%B8%AD%E5%AD%A6%E4%B9%A0%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B%E5%8F%8A%E5%81%9A%E6%B3%95/32.png" alt=""></p>
+<p><strong>flag{w3ll_3rd_stage_was_easy}</strong></p>
+
+</article>
+
+
+      
+        <div class="my-4">
+    
+    <a href="https://su-pe4ch.github.io/tags/%E6%8A%80%E6%9C%AF/" class="inline-block bg-tertiary-bg text-sm rounded px-3 py-1 my-1 me-2 hover:text-eureka">#技术</a>
+    
+</div>
+      
+
+      
+
+
+
+      
+        <div class="py-2">
+  
+    <div class="my-8 flex flex-col items-center md:flex-row">
+      <a href="https://su-pe4ch.github.io/authors/pe4ch/" class="md:me-4 text-primary-text h-24 w-24">
+        
+        
+          <img
+            src="https://su-pe4ch.github.io/images/icon.png"
+            class="bg-primary-bg w-full rounded-full"
+            alt="Avatar"
+          />
+        
+      </a>
+      <div class="mt-4 w-full md:mt-0 md:w-auto">
+        <a
+          href="https://su-pe4ch.github.io/authors/pe4ch/"
+          class="mb-2 block border-b pb-1 text-lg font-bold"
+        >
+          <h3>Pe4ch</h3>
+        </a>
+        <span class="block pb-2">只要你希望，就能得到强烈的回应。</span>
+        
+          
+          
+          
+          
+          <a href="mailto:76320143@qq.com" class="me-2">
+            <i class="fas fa-envelope"></i>
+          </a>
+        
+          
+          
+          
+          
+          <a href="https://twitter.com/Alex_1111_" class="me-2">
+            <i class="fab fa-twitter"></i>
+          </a>
+        
+          
+          
+          
+          
+          <a href="https://github.com/su-pe4ch/" class="me-2">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      </div>
+    </div>
+  
+</div>
+
+      
+
+      
+  <div
+    class="-mx-2 mt-4 flex flex-col border-t px-2 pt-4 md:flex-row md:justify-between"
+  >
+    <div>
+      
+        <span class="text-primary-text block font-bold"
+          >Previous</span
+        >
+        <a href="https://su-pe4ch.github.io/posts/ctf-misc%E6%96%87%E4%BB%B6%E9%9A%90%E5%86%99%E6%80%BB%E7%BB%93%E5%9B%BE%E7%89%87%E9%9F%B3%E9%A2%91%E8%A7%86%E9%A2%91%E5%8E%8B%E7%BC%A9%E5%8C%85%E7%AD%89%E6%96%87%E4%BB%B6/" class="block">CTF MISC文件隐写总结(图片,音频,视频,压缩包等文件)</a>
+      
+    </div>
+    <div class="mt-4 md:mt-0 md:text-right">
+      
+        <span class="text-primary-text block font-bold">Next</span>
+        <a href="https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="block">网络安全应急响应基础与流程技术</a>
+      
+    </div>
+  </div>
+
+
+      
+
+
+
+  <div id="valine-comments" class="mt-4"></div>
+<script defer src="https://cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js" 
+  integrity="sha384-e0&#43;DNUCJo75aOAzHQbFWYBCM9/S4f0BhRJXvEgbE3mMS85RM20MSSGStHuNdY2QK"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Valine({
+      el: "#valine-comments",appId:"n2AXKC0RlunW4KwG6L6oHqGE-gzGzoHsz",appKey:"sq1MkMNgpleLlbDdFYCCNyKz",
+    })
+  });
+</script>
+
+    </div>
+    
+      <div class="col-span-2">
+        
+        
+          <div
+  class="
+    bg-primary-bg
+   prose sticky top-16 z-10 hidden px-6 py-4 lg:block"
+>
+  <h3>On This Page</h3>
+</div>
+<div
+  class="sticky-toc  hidden px-6 pb-6 lg:block"
+>
+  <nav id="TableOfContents">
+  <ul>
+    <li><a href="#challenge-description">Challenge description</a></li>
+    <li><a href="#progress">Progress</a></li>
+  </ul>
+</nav>
+</div>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    enableStickyToc();
+  });
+</script>
+
+        
+      </div>
+    
+
+    
+    
+      <div
+        class=" bg-secondary-bg prose col-span-2 rounded p-6 lg:col-span-6"
+      >
+        <h3>See Also</h3>
+        
+          <a href="https://su-pe4ch.github.io/posts/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8A%80%E6%9C%AF/" class="no-underline">网络安全应急响应基础与流程技术</a>
+          <br />
+        
+      </div>
+    
+  </div>
+
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        hljs.highlightAll();
+      });
+    </script>
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2022 <a href="https://www.yxyink.com/">Pe4ch</a>
+
+         
+        
+        <br>
+        <a style="margin-bottom: 2px;"><a id="ICP" href="https://beian.miit.gov.cn/" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer">冀ICP备2021024512号-1</a> | <a href="https://icp.gov.moe/?keyword=www.yxyink.com" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer">萌国 </a><a href="https://icp.gov.moe/?keyword=www.yxyink.com" target="_blank" data-wpel-link="external" rel="nofollow external noopener noreferrer"> 20220077号</a></a>
+    </p>
+</div></div>
+    </footer>
+  </body>
+</html>
